@@ -50,6 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          // ignore: unnecessary_null_comparison
           } else if (midiaStore.midia.value != null) {
             return Container(
                 height: size.height,
