@@ -6,3 +6,5 @@ const grey = Color(0xFF1F1F1F);
 const greyIcon = Color(0xFF666666);
 const greyText = Color(0xFF898989);
 const greyBt = Color(0xFFC9C9C9);
+
+const urlImgAPI = 'https://image.tmdb.org/t/p/original/';
