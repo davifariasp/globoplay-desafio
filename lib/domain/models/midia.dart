@@ -1,10 +1,11 @@
 //import 'package:flutter/material.dart';
 
 class Midia {
-  late String title;
+  late int id;
+  late String name;
   late String genre;
   late String overview;
-  late int year;
+  late String year;
   late String country;
   late String director;
   late String cast;
@@ -12,8 +13,11 @@ class Midia {
   late String posterPath;
   late String backdropPath;
 
+  //final urlImage = 'https://image.tmdb.org/t/p/original/[poster_path]';
+
   Midia({
-    required this.title,
+    required this.id,
+    required this.name,
     required this.genre,
     required this.overview,
     required this.year,
@@ -27,15 +31,16 @@ class Midia {
 
   factory Midia.fromMap(Map<String, dynamic> map) {
     return Midia(
-      title: map['title'],
-      genre: map['genre'],
-      overview: map['overview'],
-      year: map['year'],
-      country: map['country'],
-      director: map['director'],
-      cast: map['cast'],
-      posterPath: map['poster_path'],
-      backdropPath: map['backdrop_path'],
+      id: map['id'] ?? 0,
+      name: map['name'] ?? '',
+      genre: map['genre'] ?? '',
+      overview: map['overview'] ?? '',
+      year: map['year'] ?? '',
+      country: map['country'] ?? '',
+      director: map['director'] ?? '',
+      cast: map['cast'] ?? '',
+      posterPath: map['poster_path'] ?? '',
+      backdropPath: map['backdrop_path'] ?? '',
     );
   }
 }
