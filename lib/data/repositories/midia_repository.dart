@@ -6,14 +6,11 @@ abstract class IMidiaRepository {
   getNovelas();
   getSeries();
   getMovies();
-  getMidiabyId(); //more details
+  getMidiabyId(int id); //more details
 }
 
 class MidiaRepository implements IMidiaRepository {
   final IHttpClient client;
-
-  final baseUrl = const String.fromEnvironment('BASE_URL');
-  final apiKey = const String.fromEnvironment('API_KEY');
 
   MidiaRepository({required this.client});
 
@@ -66,7 +63,21 @@ class MidiaRepository implements IMidiaRepository {
   }
 
   @override
-  Future getMidiabyId() async {}
+  getMidiabyId(int id) async {
+    final response = await client.get(
+        url:
+            'https://api.themoviedb.org/3/tv/$id?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+
+    if (response.statusCode == 200) {
+
+      final body = jsonDecode(response.body);
+      final Midia midia = Midia.fromMap(body);
+      return midia;
+      
+    } else {
+      throw Exception('Erro ao carregar midia');
+    }
+  }
 
   @override
   getMovies() async {
