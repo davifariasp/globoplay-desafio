@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:globoplay_mobile/data/http/http_client.dart';
-import 'package:globoplay_mobile/data/repositories/midia_repository.dart';
-import 'package:globoplay_mobile/presentation/pages/home/stores/movie_store.dart';
-import 'package:globoplay_mobile/presentation/pages/home/stores/novela_store.dart';
-import 'package:globoplay_mobile/presentation/pages/home/stores/serie_store.dart';
-import 'package:globoplay_mobile/presentation/widgets/list_midia.dart';
+import 'package:globoplay_mobile/presentation/pages/home/midas.dart';
+import 'package:globoplay_mobile/presentation/pages/home/mylist.dart';
 import 'package:globoplay_mobile/utils.dart';
 
 class Home extends StatefulWidget {
@@ -16,37 +12,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final NovelaStore novelaStore = NovelaStore(
-    repository: MidiaRepository(
-      client: HttpClient(),
-    ),
-  );
-
-  final SerieStore serieStore = SerieStore(
-    repository: MidiaRepository(
-      client: HttpClient(),
-    ),
-  );
-
-  final MovieStore movieStore = MovieStore(
-    repository: MidiaRepository(
-      client: HttpClient(),
-    ),
-  );
+  int pgIndex = 0;
+  late PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    novelaStore.getNovelas();
-    serieStore.getSeries();
-    movieStore.getMovies();
+    pageController = PageController(initialPage: pgIndex);
+  }
+
+  setPage(page) {
+    setState(() {
+      pgIndex = page;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    //pegando as medidas dos dispositovs
-    var size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: black,
@@ -60,25 +42,16 @@ class _HomeState extends State<Home> {
           width: 200,
         ),
       ),
-      body: Container(
-        width: size.width,
-        decoration: const BoxDecoration(
-          color: grey,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListMidia(title: 'Novelas', midiaStore: novelaStore),
-              ListMidia(title: 'Séries', midiaStore: serieStore),
-              ListMidia(title: 'Filmes', midiaStore: movieStore),
-            ],
-          ),
-        ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: setPage,
+        children: const [MidiasPage(), MyListPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: pgIndex,
         iconSize: 30,
         backgroundColor: black,
-        items: const <BottomNavigationBarItem>[
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Início',
@@ -88,6 +61,10 @@ class _HomeState extends State<Home> {
             label: 'Minha lista',
           ),
         ],
+        onTap: (page) {
+          pageController.animateToPage(page,
+              duration: const Duration(milliseconds: 300), curve: Curves.ease);
+        },
         selectedItemColor: white,
         unselectedItemColor: greyIcon,
       ),
