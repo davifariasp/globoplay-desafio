@@ -1,11 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:globoplay_mobile/data/datasources/local/repositories/mylist_repository.dart';
 import 'package:globoplay_mobile/data/datasources/remote/http/http_client.dart';
 import 'package:globoplay_mobile/data/datasources/remote/repositories/midia_repository.dart';
 import 'package:globoplay_mobile/domain/models/midia.dart';
 import 'package:globoplay_mobile/presentation/pages/details/stores/midia_store.dart';
 import 'package:globoplay_mobile/presentation/widgets/card_midia.dart';
 import 'package:globoplay_mobile/utils.dart';
+import 'package:provider/provider.dart';
 
 class DetailsPage extends StatefulWidget {
   final int id;
@@ -19,6 +21,7 @@ class _DetailsPageState extends State<DetailsPage>
     with TickerProviderStateMixin {
   List<String> cast = [];
   List<Midia> recomendacoes = [];
+  late MyListRepository myListRepository;
 
   final MidiaStore midiaStore = MidiaStore(
     repository: MidiaRepository(
@@ -57,6 +60,8 @@ class _DetailsPageState extends State<DetailsPage>
 
   @override
   Widget build(BuildContext context) {
+    myListRepository = Provider.of<MyListRepository>(context);
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -198,7 +203,9 @@ class _DetailsPageState extends State<DetailsPage>
                                         ),
                                       ),
                                       TextButton.icon(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          myListRepository.save(midiaStore.midia.value);
+                                        },
                                         icon: const Icon(Icons.star),
                                         label: const Text(
                                           'Minha lista',
