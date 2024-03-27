@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:globoplay_mobile/data/http/exceptions.dart';
-import 'package:globoplay_mobile/data/repositories/midia_repository.dart';
+import 'package:globoplay_mobile/data/datasources/remote/http/exceptions.dart';
+import 'package:globoplay_mobile/data/datasources/remote/repositories/midia_repository.dart';
 
 class MovieStore {
   final IMidiaRepository repository;

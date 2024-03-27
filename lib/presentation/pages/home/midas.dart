@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:globoplay_mobile/data/http/http_client.dart';
-import 'package:globoplay_mobile/data/repositories/midia_repository.dart';
+import 'package:globoplay_mobile/data/datasources/remote/http/http_client.dart';
+import 'package:globoplay_mobile/data/datasources/remote/repositories/midia_repository.dart';
 import 'package:globoplay_mobile/presentation/pages/home/stores/movie_store.dart';
 import 'package:globoplay_mobile/presentation/pages/home/stores/novela_store.dart';
 import 'package:globoplay_mobile/presentation/pages/home/stores/serie_store.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:globoplay_mobile/data/http/http_client.dart';
-import 'package:globoplay_mobile/data/repositories/midia_repository.dart';
+import 'package:globoplay_mobile/data/datasources/remote/http/http_client.dart';
+import 'package:globoplay_mobile/data/datasources/remote/repositories/midia_repository.dart';
 import 'package:globoplay_mobile/domain/models/midia.dart';
 import 'package:globoplay_mobile/presentation/pages/details/stores/midia_store.dart';
 import 'package:globoplay_mobile/presentation/widgets/card_midia.dart';

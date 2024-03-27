@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:globoplay_mobile/data/http/http_client.dart';
+import 'package:globoplay_mobile/data/datasources/remote/http/http_client.dart';
 import 'package:globoplay_mobile/domain/models/midia.dart';
 
 abstract class IMidiaRepository {
