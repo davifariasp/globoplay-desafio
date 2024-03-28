@@ -62,6 +62,9 @@ class _DetailsPageState extends State<DetailsPage>
   Widget build(BuildContext context) {
     myListRepository = Provider.of<MyListRepository>(context);
 
+    bool midiaOnMyList =
+        myListRepository.getAll().contains(midiaStore.midia.value);
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -202,42 +205,91 @@ class _DetailsPageState extends State<DetailsPage>
                                           ),
                                         ),
                                       ),
-                                      TextButton.icon(
-                                        onPressed: () {
-                                          myListRepository.save(midiaStore.midia.value);
-                                        },
-                                        icon: const Icon(Icons.star),
-                                        label: const Text(
-                                          'Minha lista',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        style: ButtonStyle(
-                                          padding: MaterialStateProperty.all(
-                                            const EdgeInsets.all(0),
-                                          ),
-                                          foregroundColor:
-                                              MaterialStateProperty.all(
-                                            greyIcon,
-                                          ),
-                                          fixedSize: MaterialStateProperty.all(
-                                            const Size(170, 50),
-                                          ),
-                                          overlayColor:
-                                              MaterialStateProperty.all(
-                                            white,
-                                          ),
-                                          shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                              side: const BorderSide(
-                                                  color: greyIcon),
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
+                                      midiaOnMyList
+                                          ? TextButton.icon(
+                                              onPressed: () {
+                                                myListRepository.remove(
+                                                    midiaStore.midia.value);
+                                              },
+                                              icon: const Icon(Icons.check),
+                                              label: const Text(
+                                                'Adicionado',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              style: ButtonStyle(
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                  const EdgeInsets.all(0),
+                                                ),
+                                                foregroundColor:
+                                                    MaterialStateProperty.all(
+                                                  greyIcon,
+                                                ),
+                                                fixedSize:
+                                                    MaterialStateProperty.all(
+                                                  const Size(170, 50),
+                                                ),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                  white,
+                                                ),
+                                                shape:
+                                                    MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    side: const BorderSide(
+                                                        color: greyIcon),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : TextButton.icon(
+                                              onPressed: () {
+                                                myListRepository.save(
+                                                    midiaStore.midia.value);
+                                              },
+                                              icon: const Icon(Icons.star),
+                                              label: const Text(
+                                                'Minha lista',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              style: ButtonStyle(
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                  const EdgeInsets.all(0),
+                                                ),
+                                                foregroundColor:
+                                                    MaterialStateProperty.all(
+                                                  greyIcon,
+                                                ),
+                                                fixedSize:
+                                                    MaterialStateProperty.all(
+                                                  const Size(170, 50),
+                                                ),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                  white,
+                                                ),
+                                                shape:
+                                                    MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                    side: const BorderSide(
+                                                        color: greyIcon),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ],
