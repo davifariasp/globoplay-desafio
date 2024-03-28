@@ -10,11 +10,11 @@
 .svn/
 migrate_working_dir/
 
-.linux/
-.macos/
-.test/
-.web/
-.windows/
+linux/
+macos/
+test/
+web/
+windows/
 
 # IntelliJ related
 *.iml
