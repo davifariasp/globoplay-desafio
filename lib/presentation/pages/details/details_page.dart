@@ -62,8 +62,7 @@ class _DetailsPageState extends State<DetailsPage>
   Widget build(BuildContext context) {
     myListRepository = Provider.of<MyListRepository>(context);
 
-    bool midiaOnMyList =
-        myListRepository.getAll().contains(midiaStore.midia.value);
+    bool midiaOnMyList = myListRepository.verify(midiaStore.midia.value);
 
     var size = MediaQuery.of(context).size;
 

@@ -5,7 +5,6 @@ class MyListRepository extends ChangeNotifier {
   List<Midia> myList = [];
 
   save(Midia midia) {
-
     //com esse ele nao adiciona iguais
     if (!myList.any((element) => element.id == midia.id)) {
       myList.add(midia);
@@ -14,8 +13,12 @@ class MyListRepository extends ChangeNotifier {
     notifyListeners();
   }
 
+  verify(Midia midia) {
+    return (myList.any((element) => element.id == midia.id)) ? true : false;
+  }
+
   remove(Midia midia) {
-    myList.remove(midia);
+    myList.removeWhere((element) => element.id == midia.id);
     notifyListeners();
   }
 
