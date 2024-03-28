@@ -49,6 +49,7 @@ class _MidiasPageState extends State<MidiasPage> {
     return Scaffold(
       body: Container(
         width: size.width,
+        height: size.height,
         decoration: const BoxDecoration(
           color: grey,
         ),
