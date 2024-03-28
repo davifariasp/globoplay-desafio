@@ -25,7 +25,9 @@ class _ListMidiaState extends State<ListMidia> {
       builder: (context, child) {
         if (widget.midiaStore.isLoading.value) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: white,
+            ),
           );
         } else if (widget.midiaStore.list.value.isNotEmpty) {
           return Padding(
