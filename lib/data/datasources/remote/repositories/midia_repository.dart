@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:globoplay_mobile/data/datasources/remote/http/http_client.dart';
 import 'package:globoplay_mobile/domain/models/midia.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+final baseUrl = dotenv.env['BASE_URL'];
+final apiKey = dotenv.env['API_KEY'];
 
 abstract class IMidiaRepository {
   getNovelas();
@@ -21,7 +25,7 @@ class MidiaRepository implements IMidiaRepository {
   Future getNovelas() async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/discover/tv?language=pt-BR&with_networks=3290&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/discover/tv?language=pt-BR&with_networks=3290&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       final List<Midia> midias = [];
@@ -45,7 +49,7 @@ class MidiaRepository implements IMidiaRepository {
   getSeries() async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/discover/tv?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/discover/tv?language=pt-BR&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       final List<Midia> midias = [];
@@ -69,7 +73,7 @@ class MidiaRepository implements IMidiaRepository {
   getMidiabyId(int id) async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/tv/$id?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/tv/$id?language=pt-BR&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
@@ -78,7 +82,7 @@ class MidiaRepository implements IMidiaRepository {
     } else if (response.statusCode == 404) {
       final newResponse = await client.get(
           url:
-              'https://api.themoviedb.org/3/movie/$id?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+              '$baseUrl/movie/$id?language=pt-BR&api_key=$apiKey');
 
       final body = jsonDecode(newResponse.body);
       final Midia midia = Midia.fromMap(body);
@@ -92,7 +96,7 @@ class MidiaRepository implements IMidiaRepository {
   getMovies() async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/discover/movie?&language=pt-BR&page=1&sort_by=popularity.desc&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/discover/movie?&language=pt-BR&page=1&sort_by=popularity.desc&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       final List<Midia> midias = [];
@@ -116,7 +120,7 @@ class MidiaRepository implements IMidiaRepository {
   getCast(int id) async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/tv/$id/aggregate_credits?language=pt-br&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/tv/$id/aggregate_credits?language=pt-br&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       List<String> cast = [];
@@ -137,7 +141,7 @@ class MidiaRepository implements IMidiaRepository {
   getRecomendacoes(int id) async {
     final response = await client.get(
         url:
-            'https://api.themoviedb.org/3/tv/$id/recommendations?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+            '$baseUrl/tv/$id/recommendations?language=pt-BR&api_key=$apiKey');
 
     if (response.statusCode == 200) {
       List<Midia> midias = [];
@@ -155,7 +159,7 @@ class MidiaRepository implements IMidiaRepository {
     } else if (response.statusCode == 404) {
       final newResponse = await client.get(
           url:
-              'https://api.themoviedb.org/3/movie/$id/recommendations?language=pt-BR&api_key=f5584caeecdbc0937682e809bacb43c4');
+              '$baseUrl/movie/$id/recommendations?language=pt-BR&api_key=$apiKey');
 
       List<Midia> midias = [];
 
